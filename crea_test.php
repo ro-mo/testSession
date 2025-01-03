@@ -1,66 +1,97 @@
 <?php
 session_start();
-// Controllo se sono loggato
-if (!isset($_SESSION["utente"])) {
-    header("location: login.php");
-    die();
-}
-// Se sono loggato mostro i dati degli utenti
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "quiz";
-$conn = new mysqli($servername, $username, $password, $database);
+require 'functions.php';
+checkLogin();
 
-if(isset($_POST['crea_test'])) {
-    if(!isset($_POST['nome_test']) || !isset($_POST['descrizione_test'])) {
-        echo "Compila tutti i campi";
-        die();
+$conn = connectDB();
+if ($conn->connect_error) {
+    die("Connessione fallita: " . $conn->connect_error);
+}
+
+// Funzionalità CRUD per i test
+if (isset($_POST['azione'])) {
+    $azione = $_POST['azione'];
+    if ($azione === 'crea' && !empty($_POST['titolo']) && !empty($_POST['descrizione']) && !empty($_POST['classe'])) {
+        $titolo = htmlspecialchars($_POST['titolo']);
+        $descrizione = htmlspecialchars($_POST['descrizione']);
+        $classe = htmlspecialchars($_POST['classe']);
+        createTest($conn, $titolo, $descrizione, $_SESSION["utente"], $classe);
+    } elseif ($azione === 'elimina' && !empty($_POST['test_id'])) {
+        $test_id = intval($_POST['test_id']);
+        $sql = "DELETE FROM test WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $test_id);
+        $stmt->execute();
     }
-    $nome_test = $_POST['nome_test'];
-    $descrizione_test = $_POST['descrizione_test'];
-    $sql = "INSERT INTO test (titolo, descrizione, creatore) VALUES ('$nome_test', '$descrizione_test', '".$_SESSION['utente']."')";
-    $conn->query($sql);
-    header("location: index.php");
-    die();
 }
 
-if(isset($_POST['indietro'])) {
-    header("location: index.php");
-    die();
-}
+// Recupera tutti i test
+$sql = "SELECT * FROM test";
+$result = $conn->query($sql);
+$test_list = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Gestione Test</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
 </head>
 <body>
-    <form action="crea_test.php" method="post">
-        <br><input type="text" name="nome_test" placeholder="Nome test"><br>
-        <input type="text" name="descrizione_test" placeholder="Descrizione test">
-        <br>
-        <input type="button" value="+ Aggiungi domanda" name="aggiungi_domanda">
-        <script>
-            document.getElementsByName("aggiungi_domanda")[0].addEventListener("click", function() {
-                document.getElementById("domande").innerHTML += "<input type='text' name='domanda' placeholder='Domanda'><br><input type='text' name='risposta1' placeholder='Risposta 1'><input type='checkbox' name='risposta1' id='risposta1'><br><input type='text' name='risposta2' placeholder='Risposta 2'><input type='checkbox' name='risposta2' id='risposta2'><br><input type='text' name='risposta3' placeholder='Risposta 3'><input type='checkbox' name='risposta3' id='risposta3'><br><input type='text' name='risposta4' placeholder='Risposta 4'><input type='checkbox' name='risposta4' id='risposta4'>";
-                document.getElementById("domande").innerHTML += "<br><br>";
-            });
-            document.getElementsByName("crea_test")[0].addEventListener("click", function() {
-                if(document.getElementById("domande") == ""){
-                    alert("Inserisci almeno una domanda");
-                    return;
-                }
-            });
-        </script>
-        <div id="domande"></div>
-        <br><br>
-        <input type="submit" value="Crea test" name="crea_test">
-        <input type="submit" value="Indietro" name="indietro">
+    <header>
+        <h1>Gestione Test</h1>
+        <nav>
+            <a href="index.php">Torna alla Dashboard</a>
+        </nav>
+    </header>
+
+    <h2>Crea un Nuovo Test</h2>
+    <form method="post">
+        <input type="hidden" name="azione" value="crea">
+        <label for="titolo">Titolo:</label>
+        <input type="text" id="titolo" name="titolo" required><br>
+
+        <label for="descrizione">Descrizione:</label>
+        <textarea id="descrizione" name="descrizione" required></textarea><br>
+
+        <label for="classe">Classe:</label>
+        <input type="text" id="classe" name="classe" required><br>
+
+        <input type="submit" value="Crea Test">
     </form>
+
+    <h2>Lista Test</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titolo</th>
+                <th>Descrizione</th>
+                <th>Classe</th>
+                <th>Azioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($test_list as $test) { ?>
+                <tr>
+                    <td><?php echo $test['id']; ?></td>
+                    <td><?php echo htmlspecialchars($test['titolo']); ?></td>
+                    <td><?php echo htmlspecialchars($test['descrizione']); ?></td>
+                    <td><?php echo htmlspecialchars($test['classe']); ?></td>
+                    <td>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="azione" value="elimina">
+                            <input type="hidden" name="test_id" value="<?php echo $test['id']; ?>">
+                            <input type="submit" value="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
+                        </form>
+                        <a href="modifica_test.php?id=<?php echo $test['id']; ?>">Modifica</a>
+                    </td>
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </body>
 </html>
