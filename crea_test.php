@@ -15,7 +15,15 @@ if (isset($_POST['azione'])) {
         $titolo = htmlspecialchars($_POST['titolo']);
         $descrizione = htmlspecialchars($_POST['descrizione']);
         $classe = htmlspecialchars($_POST['classe']);
-        createTest($conn, $titolo, $descrizione, $_SESSION["utente"], $classe);
+        $visibile = isset($_POST['visibile']) ? 1 : 0;
+        $creatore = $_SESSION['utente'];
+
+        if (createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile)) {
+            header("Location: modifica_test.php?id=" . $conn->insert_id);
+            exit();
+        } else {
+            $errore = "Errore nella creazione del test. Riprova.";
+        }
     } elseif ($azione === 'elimina' && !empty($_POST['test_id'])) {
         $test_id = intval($_POST['test_id']);
         $sql = "DELETE FROM test WHERE id = ?";
@@ -25,9 +33,13 @@ if (isset($_POST['azione'])) {
     }
 }
 
-// Recupera tutti i test
-$sql = "SELECT * FROM test";
-$result = $conn->query($sql);
+// Recupera tutti i test creati dal docente
+$creatore = $_SESSION['utente'];
+$sql = "SELECT * FROM test WHERE creatore = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("s", $creatore);
+$stmt->execute();
+$result = $stmt->get_result();
 $test_list = $result->fetch_all(MYSQLI_ASSOC);
 ?>
 
@@ -39,6 +51,17 @@ $test_list = $result->fetch_all(MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Test</title>
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+    <style>
+        .button-yellow {
+            background-color: yellow;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .button-yellow:hover {
+            background-color: gold;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -49,6 +72,7 @@ $test_list = $result->fetch_all(MYSQLI_ASSOC);
     </header>
 
     <h2>Crea un Nuovo Test</h2>
+    <?php if (isset($errore)) echo "<p style='color:red;'>$errore</p>"; ?>
     <form method="post">
         <input type="hidden" name="azione" value="crea">
         <label for="titolo">Titolo:</label>
@@ -60,38 +84,46 @@ $test_list = $result->fetch_all(MYSQLI_ASSOC);
         <label for="classe">Classe:</label>
         <input type="text" id="classe" name="classe" required><br>
 
+        <label for="visibile">Visibile agli studenti:</label>
+        <input type="checkbox" name="visibile" id="visibile"><br>
+
         <input type="submit" value="Crea Test">
     </form>
 
     <h2>Lista Test</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titolo</th>
-                <th>Descrizione</th>
-                <th>Classe</th>
-                <th>Azioni</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($test_list as $test) { ?>
+    <?php if (count($test_list) > 0) { ?>
+        <table>
+            <thead>
                 <tr>
-                    <td><?php echo $test['id']; ?></td>
-                    <td><?php echo htmlspecialchars($test['titolo']); ?></td>
-                    <td><?php echo htmlspecialchars($test['descrizione']); ?></td>
-                    <td><?php echo htmlspecialchars($test['classe']); ?></td>
-                    <td>
-                        <form method="post" style="display:inline;">
-                            <input type="hidden" name="azione" value="elimina">
-                            <input type="hidden" name="test_id" value="<?php echo $test['id']; ?>">
-                            <input type="submit" value="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
-                        </form>
-                        <a href="modifica_test.php?id=<?php echo $test['id']; ?>">Modifica</a>
-                    </td>
+                    <th>Titolo</th>
+                    <th>Descrizione</th>
+                    <th>Classe</th>
+                    <th>Azioni</th>
                 </tr>
-            <?php } ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($test_list as $test) { ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($test['titolo']); ?></td>
+                        <td><?php echo htmlspecialchars($test['descrizione']); ?></td>
+                        <td><?php echo htmlspecialchars($test['classe']); ?></td>
+                        <td>
+                            <form method="get" action="modifica_test.php" style="display:inline;">
+                                <input type="hidden" name="id" value="<?php echo $test['id']; ?>">
+                                <input type="submit" value="Modifica" class="button-yellow">
+                            </form>
+                            <form method="post" style="display:inline;">
+                                <input type="hidden" name="azione" value="elimina">
+                                <input type="hidden" name="test_id" value="<?php echo $test['id']; ?>">
+                                <input type="submit" value="Elimina" class="button-yellow" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
+                            </form>
+                        </td>
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    <?php } else { ?>
+        <p>Non ci sono test creati.</p>
+    <?php } ?>
 </body>
 </html>

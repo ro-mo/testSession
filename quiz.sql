@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Gen 03, 2025 alle 13:42
+-- Creato il: Gen 04, 2025 alle 21:17
 -- Versione del server: 10.4.32-MariaDB
 -- Versione PHP: 8.2.12
 
@@ -65,6 +65,19 @@ CREATE TABLE `risposta_utente` (
 -- --------------------------------------------------------
 
 --
+-- Struttura della tabella `svolgimento_test`
+--
+
+CREATE TABLE `svolgimento_test` (
+  `id` int(11) NOT NULL,
+  `test_id` int(11) NOT NULL,
+  `utente_id` int(11) NOT NULL,
+  `data_svolgimento` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struttura della tabella `test`
 --
 
@@ -74,7 +87,8 @@ CREATE TABLE `test` (
   `descrizione` text DEFAULT NULL,
   `creatore` varchar(100) NOT NULL,
   `data_creazione` timestamp NOT NULL DEFAULT current_timestamp(),
-  `classe` varchar(100) DEFAULT NULL
+  `classe` varchar(100) DEFAULT NULL,
+  `visibile` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -121,6 +135,14 @@ ALTER TABLE `risposta_utente`
   ADD KEY `risposta_id` (`risposta_id`);
 
 --
+-- Indici per le tabelle `svolgimento_test`
+--
+ALTER TABLE `svolgimento_test`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `test_id` (`test_id`),
+  ADD KEY `utente_id` (`utente_id`);
+
+--
 -- Indici per le tabelle `test`
 --
 ALTER TABLE `test`
@@ -142,31 +164,37 @@ ALTER TABLE `utente`
 -- AUTO_INCREMENT per la tabella `domanda`
 --
 ALTER TABLE `domanda`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT per la tabella `risposta`
 --
 ALTER TABLE `risposta`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT per la tabella `risposta_utente`
 --
 ALTER TABLE `risposta_utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT per la tabella `svolgimento_test`
+--
+ALTER TABLE `svolgimento_test`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT per la tabella `test`
 --
 ALTER TABLE `test`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Limiti per le tabelle scaricate
@@ -191,6 +219,13 @@ ALTER TABLE `risposta_utente`
   ADD CONSTRAINT `risposta_utente_ibfk_1` FOREIGN KEY (`utente_id`) REFERENCES `utente` (`id`),
   ADD CONSTRAINT `risposta_utente_ibfk_2` FOREIGN KEY (`domanda_id`) REFERENCES `domanda` (`id`),
   ADD CONSTRAINT `risposta_utente_ibfk_3` FOREIGN KEY (`risposta_id`) REFERENCES `risposta` (`id`);
+
+--
+-- Limiti per la tabella `svolgimento_test`
+--
+ALTER TABLE `svolgimento_test`
+  ADD CONSTRAINT `svolgimento_test_ibfk_1` FOREIGN KEY (`test_id`) REFERENCES `test` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `svolgimento_test_ibfk_2` FOREIGN KEY (`utente_id`) REFERENCES `utente` (`id`) ON DELETE CASCADE;
 
 --
 -- Limiti per la tabella `test`

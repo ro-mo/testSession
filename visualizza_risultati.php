@@ -41,39 +41,43 @@ if (isset($_GET['id'])) {
         </nav>
     </header>
 
-    <h2>Seleziona un Test</h2>
-    <form method="get">
-        <label for="id">Test:</label>
-        <select name="id" id="id" required>
-            <?php foreach ($test_list as $test) { ?>
-                <option value="<?php echo $test['id']; ?>"><?php echo htmlspecialchars($test['titolo']); ?></option>
-            <?php } ?>
-        </select>
-        <input type="submit" value="Visualizza Risultati">
-    </form>
-
-    <?php if (isset($risultati)) { ?>
-        <h2>Risultati</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Domanda</th>
-                    <th>Risposta</th>
-                    <th>Corretta</th>
-                    <th>Utente</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $risultati->fetch_assoc()) { ?>
-                    <tr>
-                        <td><?php echo htmlspecialchars($row['domanda']); ?></td>
-                        <td><?php echo htmlspecialchars($row['risposta'] ?? $row['testo_libero']); ?></td>
-                        <td><?php echo isset($row['corretta']) ? ($row['corretta'] ? 'Sì' : 'No') : ''; ?></td>
-                        <td><?php echo htmlspecialchars($row['nome'] . ' ' . $row['cognome']); ?></td>
-                    </tr>
+    <?php if (count($test_list) > 0) { ?>
+        <h2>Seleziona un Test</h2>
+        <form method="get">
+            <label for="id">Test:</label>
+            <select name="id" id="id" required>
+                <?php foreach ($test_list as $test) { ?>
+                    <option value="<?php echo $test['id']; ?>"><?php echo htmlspecialchars($test['titolo']); ?></option>
                 <?php } ?>
-            </tbody>
-        </table>
+            </select>
+            <input type="submit" value="Visualizza Risultati">
+        </form>
+
+        <?php if (isset($risultati)) { ?>
+            <h2>Risultati</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Domanda</th>
+                        <th>Risposta</th>
+                        <th>Corretta</th>
+                        <th>Utente</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $risultati->fetch_assoc()) { ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($row['domanda']); ?></td>
+                            <td><?php echo htmlspecialchars($row['risposta'] ?? $row['testo_libero']); ?></td>
+                            <td><?php echo isset($row['corretta']) ? ($row['corretta'] ? 'Sì' : 'No') : ''; ?></td>
+                            <td><?php echo htmlspecialchars($row['nome'] . ' ' . $row['cognome']); ?></td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
+        <?php } ?>
+    <?php } else { ?>
+        <p>Non ci sono test creati.</p>
     <?php } ?>
 </body>
 </html>

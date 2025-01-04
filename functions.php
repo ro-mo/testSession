@@ -26,10 +26,10 @@ function isDocente($conn, $login) {
     return false;
 }
 
-function createTest($conn, $titolo, $descrizione, $creatore, $classe) {
-    $sql = "INSERT INTO test (titolo, descrizione, creatore, classe) VALUES (?, ?, ?, ?)";
+function createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile) {
+    $sql = "INSERT INTO test (titolo, descrizione, creatore, classe, visibile) VALUES (?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssss", $titolo, $descrizione, $creatore, $classe);
+    $stmt->bind_param("ssssi", $titolo, $descrizione, $creatore, $classe, $visibile);
     return $stmt->execute();
 }
 
