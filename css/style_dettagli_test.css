@@ -1,0 +1,92 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
+    background-color: #f4f4f4; /* Colore di sfondo chiaro */
+    color: #333; /* Colore del testo */
+    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+}
+
+/* Stile dell'intestazione */
+header {
+    background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Sfondo gradiente */
+    color: white; /* Colore del testo */
+    padding: 20px; /* Padding */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del titolo */
+header h1 {
+    font-size: 2.5em; /* Dimensione del font per il titolo */
+}
+
+/* Stile per la descrizione del test */
+header .description {
+    font-size: 1.2em; /* Dimensione del font per la descrizione */
+    margin-top: 10px; /* Margine sopra la descrizione */
+}
+
+/* Stile della navigazione */
+nav a {
+    color: white; /* Colore dei link */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    padding: 10px 20px; /* Padding intorno ai link */
+    border-radius: 5px; /* Angoli arrotondati */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Effetto hover */
+}
+
+/* Stile per il messaggio "Test già svolto" */
+p.test-completed {
+    color: #ff5722; /* Colore arancione per il messaggio */
+    text-align: center; /* Allineamento al centro */
+    font-weight: bold; /* Grassetto per il messaggio */
+    margin-top: 20px; /* Margine sopra */
+}
+
+/* Stile per il modulo di svolgimento del test */
+.centered-form {
+    display: flex; /* Flexbox per centrare il modulo */
+    justify-content: center; /* Allineamento al centro */
+    margin-top: 30px; /* Margine sopra */
+}
+
+/* Stile per il pulsante di svolgimento del test */
+form input[type="submit"] {
+    background-color: #4caf50; /* Colore di sfondo verde */
+    color: white; /* Colore del testo bianco */
+    border: none; /* Rimuove il bordo */
+    padding: 15px 30px; /* Padding interno */
+    border-radius: 5px; /* Angoli arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    font-size: 1em; /* Dimensione del font */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+form input[type="submit"]:hover {
+    background-color: #388e3c; /* Colore di sfondo più scuro al passaggio del mouse */
+}
+
+/* Stile responsive per schermi piccoli */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em; /* Riduce la dimensione del font per schermi piccoli */
+    }
+
+    header .description {
+        font-size: 1em; /* Riduce la dimensione della descrizione */
+    }
+
+    form input[type="submit"] {
+        padding: 10px 20px; /* Riduce il padding per schermi piccoli */
+    }
+}

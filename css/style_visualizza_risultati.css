@@ -1,0 +1,105 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
+    background-color: #f4f4f4; /* Colore di sfondo chiaro */
+    color: #333; /* Colore del testo */
+    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+}
+
+/* Stile dell'intestazione */
+h1 {
+    text-align: center; /* Allineamento al centro */
+    margin: 20px 0; /* Margine per distanziare l'intestazione */
+    color: #6a11cb; /* Colore del titolo */
+}
+
+/* Stile per i messaggi di errore */
+p.error {
+    color: red; /* Colore rosso per i messaggi di errore */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile per i messaggi di successo */
+p.success {
+    color: green; /* Colore verde per i messaggi di successo */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del contenitore per i risultati */
+.results-container {
+    background: white; /* Sfondo bianco */
+    border-radius: 10px; /* Angoli arrotondati */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+    max-width: 700px; /* Larghezza massima */
+    margin: 50px auto; /* Margine automatico per centrare il contenitore */
+    padding: 20px; /* Padding interno */
+}
+
+/* Stile per le righe dei risultati */
+.result-row {
+    display: flex; /* Layout flessibile */
+    justify-content: space-between; /* Spaziatura tra le righe */
+    padding: 10px 0; /* Spaziatura verticale */
+    border-bottom: 1px solid #ddd; /* Bordo divisorio */
+}
+
+.result-row:last-child {
+    border-bottom: none; /* Rimuove l'ultimo bordo */
+}
+
+/* Stile per le etichette dei risultati */
+.result-label {
+    font-weight: bold; /* Grassetto per le etichette */
+    color: #6a11cb; /* Colore del testo */
+}
+
+/* Stile per i valori dei risultati */
+.result-value {
+    color: #333; /* Colore scuro per i valori */
+}
+
+/* Stile per il pulsante di ritorno */
+.return-button {
+    display: block; /* Pulsante come blocco */
+    background-color: #4caf50; /* Colore di sfondo verde */
+    color: white; /* Testo bianco */
+    padding: 15px; /* Padding interno */
+    border-radius: 5px; /* Angoli arrotondati */
+    text-align: center; /* Centra il testo */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    margin: 20px auto; /* Centra il pulsante */
+    max-width: 200px; /* Larghezza massima del pulsante */
+    cursor: pointer; /* Cambia il cursore */
+    transition: background-color 0.3s; /* Transizione per effetto hover */
+}
+
+.return-button:hover {
+    background-color: #388e3c; /* Colore verde più scuro */
+}
+
+/* Stile responsive per schermi piccoli */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em; /* Riduce la dimensione del titolo */
+    }
+
+    .results-container {
+        padding: 15px; /* Riduce il padding interno */
+    }
+
+    .result-row {
+        flex-direction: column; /* Layout verticale per schermi piccoli */
+        align-items: flex-start; /* Allinea il testo a sinistra */
+    }
+
+    .return-button {
+        width: 100%; /* Pulsante a larghezza piena */
+    }
+}

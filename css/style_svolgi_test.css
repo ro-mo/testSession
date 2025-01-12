@@ -1,0 +1,114 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Verdana', sans-serif; /* Font semplice e moderno */
+    background-color: #e3f2fd; /* Colore di sfondo azzurro chiaro */
+    color: #222; /* Colore del testo scuro */
+    line-height: 1.5; /* Migliora la leggibilità */
+    padding: 20px; /* Padding generale */
+}
+
+/* Stile dell'intestazione principale */
+h1 {
+    text-align: center; /* Allineamento centrale */
+    margin: 20px 0; /* Margine sopra e sotto */
+    color: #0d47a1; /* Colore blu scuro */
+}
+
+/* Stile dei messaggi di errore */
+p.error {
+    color: #d32f2f; /* Rosso intenso per errori */
+    text-align: center; /* Centra il testo */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+/* Stile del contenitore del test */
+form {
+    background: #ffffff; /* Sfondo bianco */
+    border-radius: 12px; /* Angoli arrotondati */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombra per profondità */
+    max-width: 600px; /* Larghezza massima del modulo */
+    margin: 40px auto; /* Centra il modulo */
+    padding: 25px; /* Spaziatura interna */
+}
+
+/* Stile per i campi del modulo */
+label {
+    display: block; /* Forza i label a una nuova riga */
+    margin-bottom: 8px; /* Spaziatura sotto il label */
+    font-weight: bold; /* Grassetto per evidenziare i label */
+    color: #0d47a1; /* Blu scuro */
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    padding: 12px; /* Spaziatura interna */
+    margin-bottom: 18px; /* Margine sotto i campi */
+    border: 1px solid #b0bec5; /* Bordo grigio chiaro */
+    border-radius: 8px; /* Angoli arrotondati */
+    font-size: 1em; /* Dimensione leggibile */
+    transition: border 0.3s; /* Transizione per effetto hover */
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #0d47a1; /* Cambia colore del bordo al focus */
+    outline: none; /* Rimuove l'effetto bordo di default */
+}
+
+/* Stile per il pulsante di invio */
+input[type="submit"] {
+    background-color: #1976d2; /* Colore blu vivo */
+    color: white; /* Testo bianco */
+    border: none; /* Nessun bordo */
+    padding: 15px; /* Spaziatura interna */
+    border-radius: 8px; /* Angoli arrotondati */
+    cursor: pointer; /* Mostra il cursore interattivo */
+    font-size: 1em; /* Testo leggibile */
+    transition: background-color 0.3s; /* Transizione per l'effetto hover */
+}
+
+input[type="submit"]:hover {
+    background-color: #0d47a1; /* Blu più scuro all'hover */
+}
+
+/* Stile per messaggi di successo */
+p.success {
+    color: #388e3c; /* Verde intenso per i messaggi positivi */
+    text-align: center; /* Centra il testo */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+/* Stile per la sezione dei risultati */
+#results {
+    background-color: #e3f2fd; /* Sfondo simile alla pagina */
+    border: 1px dashed #0d47a1; /* Bordo tratteggiato blu scuro */
+    border-radius: 10px; /* Angoli arrotondati */
+    padding: 20px; /* Spaziatura interna */
+    margin-top: 20px; /* Spazio sopra */
+    color: #222; /* Testo scuro */
+}
+
+/* Design responsive */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 1.8em; /* Dimensione ridotta per schermi piccoli */
+    }
+
+    form {
+        padding: 20px; /* Riduce il padding interno */
+    }
+
+    input[type="submit"] {
+        padding: 12px; /* Riduce la spaziatura interna */
+    }
+}

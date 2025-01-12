@@ -50,18 +50,7 @@ $test_list = $result->fetch_all(MYSQLI_ASSOC);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestione Test</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <style>
-        .button-yellow {
-            background-color: yellow;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        .button-yellow:hover {
-            background-color: gold;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style_crea_test.css">
 </head>
 <body>
     <header>

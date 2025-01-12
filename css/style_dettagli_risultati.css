@@ -1,0 +1,97 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
+    background-color: #f4f4f4; /* Colore di sfondo chiaro */
+    color: #333; /* Colore del testo */
+    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+}
+
+/* Stile dell'intestazione */
+header {
+    background: linear-gradient(135deg, #00c6ff, #0072ff); /* Sfondo gradiente */
+    color: white; /* Colore del testo */
+    padding: 20px; /* Padding */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del titolo */
+header h1 {
+    font-size: 2.5em; /* Dimensione del font per il titolo */
+}
+
+/* Stile della navigazione */
+nav a {
+    color: white; /* Colore dei link */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    padding: 10px 20px; /* Padding intorno ai link */
+    border-radius: 5px; /* Angoli arrotondati */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Effetto hover */
+}
+
+/* Stile per le intestazioni di sezione */
+h2 {
+    margin: 20px 0; /* Margine per distanziare le intestazioni */
+    font-size: 2em; /* Dimensione del font */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile per la tabella dei risultati */
+table {
+    width: 100%; /* Larghezza al 100% della tabella */
+    margin: 20px 0; /* Margine sopra e sotto */
+    border-collapse: collapse; /* Combina i bordi */
+    background-color: white; /* Sfondo bianco per la tabella */
+    border-radius: 10px; /* Angoli arrotondati */
+    overflow: hidden; /* Nasconde gli angoli arrotondati */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra della tabella */
+}
+
+/* Stile per le celle della tabella */
+th, td {
+    padding: 10px; /* Padding interno per celle */
+    text-align: left; /* Allineamento a sinistra */
+    border-bottom: 1px solid #ddd; /* Bordo inferiore per le celle */
+}
+
+th {
+    background-color: #f2f2f2; /* Sfondo grigio chiaro per intestazioni */
+    font-weight: bold; /* Grassetto per le intestazioni */
+}
+
+/* Stile per le righe dispari della tabella */
+tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; /* Sfondo grigio chiaro per righe dispari */
+}
+
+/* Stile per la righe evidenziate */
+tbody tr:hover {
+    background-color: #e0f7fa; /* Colore di sfondo blu chiaro al passaggio del mouse */
+}
+
+/* Stile per i messaggi di errore */
+p {
+    color: red; /* Colore rosso per i messaggi di errore */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile responsive per schermi piccoli */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em; /* Riduce la dimensione del font per schermi piccoli */
+    }
+
+    table {
+        font-size: 0.9em; /* Riduce la dimensione del font della tabella */
+    }
+}

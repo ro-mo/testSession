@@ -1,0 +1,124 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
+    background-color: #f4f4f4; /* Colore di sfondo chiaro */
+    color: #333; /* Colore del testo */
+    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+}
+
+/* Stile dell'intestazione */
+header {
+    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Sfondo gradiente */
+    color: white; /* Colore del testo */
+    padding: 20px; /* Padding */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del titolo */
+header h1 {
+    font-size: 2.5em; /* Dimensione del font per il titolo */
+}
+
+/* Stile della navigazione */
+nav a {
+    color: white; /* Colore dei link */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    padding: 10px 20px; /* Padding intorno ai link */
+    border-radius: 5px; /* Angoli arrotondati */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Effetto hover */
+}
+
+/* Stile per le intestazioni di sezione */
+h2 {
+    margin: 20px 0; /* Margine per distanziare le intestazioni */
+    font-size: 2em; /* Dimensione del font */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del modulo di creazione test */
+form {
+    background: white; /* Sfondo bianco per il modulo */
+    border-radius: 10px; /* Angoli arrotondati */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra del modulo */
+    margin: 20px auto; /* Margine automatico per centrare il modulo */
+    padding: 20px; /* Padding interno */
+    max-width: 600px; /* Larghezza massima del modulo */
+}
+
+/* Stile per i campi del modulo */
+label {
+    display: block; /* Mostra i label come blocchi */
+    margin-bottom: 5px; /* Margine sotto i label */
+    font-weight: bold; /* Grassetto per i label */
+}
+
+input[type="text"],
+textarea {
+    width: 100%; /* Larghezza al 100% per i campi */
+    padding: 10px; /* Padding interno */
+    margin-bottom: 20px; /* Margine sotto i campi */
+    border: 1px solid #ccc; /* Bordo grigio chiaro */
+    border-radius: 5px; /* Angoli arrotondati */
+    font-size: 1em; /* Dimensione del font */
+}
+
+/* Stile per il pulsante di invio */
+input[type="submit"] {
+    background-color: #57c57f; /* Colore di sfondo verde */
+    color: white; /* Colore del testo bianco */
+    border: none; /* Rimuove il bordo */
+    padding: 15px; /* Padding interno */
+    border-radius: 5px; /* Angoli arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    font-size: 1em; /* Dimensione del font */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+input[type="submit"]:hover {
+    background-color: #45a76a; /* Colore di sfondo più scuro al passaggio del mouse */
+}
+
+/* Stile per la lista dei test */
+table {
+    width: 100%; /* Larghezza al 100% della tabella */
+    margin: 20px 0; /* Margine sopra e sotto */
+    border-collapse: collapse; /* Combina i bordi */
+}
+
+th, td {
+    padding: 10px; /* Padding interno per celle */
+    text-align: left; /* Allineamento a sinistra */
+    border-bottom: 1px solid #ccc; /* Bordo inferiore per le celle */
+}
+
+th {
+    background-color: #f2f2f2; /* Sfondo grigio chiaro per intestazioni */
+}
+
+/* Stile per i messaggi di errore */
+p {
+    color: red; /* Colore rosso per i messaggi di errore */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile responsive per schermi piccoli */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em; /* Riduce la dimensione del font per schermi piccoli */
+    }
+
+    form {
+        padding: 15px; /* Riduce il padding per schermi piccoli */
+    }
+}

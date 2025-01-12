@@ -1,0 +1,94 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
+    background-color: #f4f4f4; /* Colore di sfondo chiaro */
+    color: #333; /* Colore del testo */
+    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+}
+
+/* Stile dell'intestazione */
+h1 {
+    text-align: center; /* Allineamento al centro */
+    margin: 20px 0; /* Margine per distanziare l'intestazione */
+    color: #ff7e5f; /* Colore del titolo */
+}
+
+/* Stile per il messaggio di errore */
+p {
+    color: red; /* Colore rosso per i messaggi di errore */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del contenitore del modulo di login */
+form {
+    background: white; /* Sfondo bianco per il modulo */
+    border-radius: 10px; /* Angoli arrotondati */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra del modulo */
+    max-width: 400px; /* Larghezza massima del modulo */
+    margin: 50px auto; /* Margine automatico per centrare il modulo */
+    padding: 20px; /* Padding interno */
+}
+
+/* Stile per i campi del modulo */
+label {
+    display: block; /* Mostra i label come blocchi */
+    margin-bottom: 5px; /* Margine sotto i label */
+    font-weight: bold; /* Grassetto per i label */
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%; /* Larghezza al 100% per i campi */
+    padding: 10px; /* Padding interno */
+    margin-bottom: 20px; /* Margine sotto i campi */
+    border: 1px solid #ccc; /* Bordo grigio chiaro */
+    border-radius: 5px; /* Angoli arrotondati */
+    font-size: 1em; /* Dimensione del font */
+}
+
+/* Stile per il pulsante di invio */
+input[type="submit"] {
+    background-color: #4caf50; /* Colore di sfondo verde */
+    color: white; /* Colore del testo bianco */
+    border: none; /* Rimuove il bordo */
+    padding: 15px; /* Padding interno */
+    border-radius: 5px; /* Angoli arrotondati */
+    cursor: pointer; /* Cambia il cursore al passaggio del mouse */
+    font-size: 1em; /* Dimensione del font */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+input[type="submit"]:hover {
+    background-color: #388e3c; /* Colore di sfondo più scuro al passaggio del mouse */
+}
+
+/* Stile per il link di registrazione */
+a {
+    display: block; /* Mostra il link come blocco */
+    text-align: center; /* Allineamento al centro */
+    margin-top: 20px; /* Margine sopra */
+    color: #007bff; /* Colore blu */
+    text-decoration: none; /* Rimuove la sottolineatura */
+}
+
+a:hover {
+    text-decoration: underline; /* Sottolinea al passaggio del mouse */
+}
+
+/* Stile responsive per schermi piccoli */
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2em; /* Riduce la dimensione del font per schermi piccoli */
+    }
+
+    form {
+        padding: 15px; /* Riduce il padding per schermi piccoli */
+    }
+}

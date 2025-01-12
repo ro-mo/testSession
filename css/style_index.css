@@ -1,0 +1,90 @@
+/* Reset di base per margini e padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stile del corpo della pagina */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4; /* Colore di sfondo chiaro */
+    color: #333; /* Colore del testo */
+    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+}
+
+/* Stile dell'intestazione */
+header {
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Sfondo gradiente */
+    color: white; /* Colore del testo */
+    padding: 20px; /* Padding */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Stile del titolo */
+header h1 {
+    font-size: 2.5em; /* Dimensione del font per il titolo */
+}
+
+/* Stile della navigazione */
+nav a {
+    color: white; /* Colore dei link */
+    text-decoration: none; /* Rimuove la sottolineatura */
+    padding: 10px 20px; /* Padding intorno ai link */
+    border-radius: 5px; /* Angoli arrotondati */
+    transition: background 0.3s; /* Transizione per effetto hover */
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Effetto hover */
+}
+
+/* Stile per le intestazioni di sezione */
+h2 {
+    margin: 20px 0; /* Margine per distanziare le intestazioni */
+    font-size: 2em; /* Dimensione del font */
+    text-align: center; /* Allineamento al centro */
+}
+
+/* Contenitore delle carte */
+.card-container {
+    display: flex; /* Flexbox per il layout delle carte */
+    flex-wrap: wrap; /* Permette il wrapping delle carte */
+    justify-content: center; /* Allinea le carte al centro */
+    margin: 20px; /* Margine intorno al contenitore */
+}
+
+/* Stile per ogni carta */
+.card {
+    background: white; /* Sfondo bianco per le carte */
+    border-radius: 10px; /* Angoli arrotondati */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra della carta */
+    margin: 10px; /* Margine tra le carte */
+    padding: 20px; /* Padding interno */
+    text-align: center; /* Allineamento al centro del testo */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transizione per effetto hover */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Solleva la carta in hover */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombra più intensa in hover */
+}
+
+/* Stile per il messaggio "Nessun test disponibile" */
+.no-tests {
+    text-align: center; /* Allineamento al centro */
+    color: #ff0000; /* Colore rosso */
+    font-weight: bold; /* Testo in grassetto */
+}
+
+/* Stile responsive per schermi piccoli */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 2em; /* Riduce la dimensione del font per schermi piccoli */
+    }
+
+    .card-container {
+        flex-direction: column; /* Dispone le carte in colonna */
+        align-items: center; /* Allinea le carte al centro */
+    }
+}

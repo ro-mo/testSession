@@ -41,44 +41,7 @@ $classe = $utente_info['classe'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
-    <style>
-        .no-tests {
-            padding: 20px;
-            margin: 20px 0;
-            border: 1px solid #ccc;
-            background-color: #f9f9f9;
-            text-align: center;
-            font-size: 1.2em;
-            color: #333;
-        }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-top: 20px;
-        }
-        .card {
-            flex: 1 1 calc(33.333% - 20px);
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            text-align: center;
-            background-color: #f9f9f9;
-            transition: background-color 0.3s;
-        }
-        .card:hover {
-            background-color: #e9e9e9;
-        }
-        .card a {
-            text-decoration: none;
-            color: #333;
-            font-size: 1.2em;
-        }
-        .card a:hover {
-            color: #007bff;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style_index.css">
 </head>
 <body>
     <header>
@@ -104,15 +67,14 @@ $classe = $utente_info['classe'];
             <?php
             $sql = "SELECT t.id, t.titolo, t.descrizione
                     FROM test t
-                    LEFT JOIN svolgimento_test st ON t.id = st.test_id AND st.utente_id = ?
-                    WHERE st.utente_id IS NULL AND t.classe = ? AND t.visibile = 1";
+                    WHERE t.classe = ? AND t.visibile = 1";
             $stmt = $conn->prepare($sql);
-            $stmt->bind_param("ss", $utente, $classe);
+            $stmt->bind_param("s", $classe);
             $stmt->execute();
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<div class='card'><a href='svolgi_test.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['titolo']) . ": " . htmlspecialchars($row['descrizione']) . "</a></div>";
+                    echo "<div class='card'><a href='dettagli_test.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['titolo']) . ": " . htmlspecialchars($row['descrizione']) . "</a></div>";
                 }
             } else {
                 echo "<div class='no-tests'>Nessun test disponibile al momento.</div>";
