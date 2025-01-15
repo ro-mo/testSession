@@ -26,11 +26,38 @@ function isDocente($conn, $login) {
     return false;
 }
 
-function createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile) {
-    $sql = "INSERT INTO test (titolo, descrizione, creatore, classe, visibile) VALUES (?, ?, ?, ?, ?)";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssi", $titolo, $descrizione, $creatore, $classe, $visibile);
-    return $stmt->execute();
+function createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile, $domande) {
+    $conn->begin_transaction();
+    try {
+        $sql = "INSERT INTO test (titolo, descrizione, creatore, classe, visibile) VALUES (?, ?, ?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssssi", $titolo, $descrizione, $creatore, $classe, $visibile);
+        $stmt->execute();
+        $test_id = $conn->insert_id;
+
+        foreach ($domande as $domanda) {
+            $sql = "INSERT INTO domanda (test_id, testo, tipo) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("iss", $test_id, $domanda['testo'], $domanda['tipo']);
+            $stmt->execute();
+            $domanda_id = $conn->insert_id;
+
+            if ($domanda['tipo'] === 'multipla' && !empty($domanda['risposte'])) {
+                $sql = "INSERT INTO risposta (domanda_id, testo, corretta) VALUES (?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                foreach ($domanda['risposte'] as $risposta) {
+                    $stmt->bind_param("isi", $domanda_id, $risposta['testo'], $risposta['corretta']);
+                    $stmt->execute();
+                }
+            }
+        }
+
+        $conn->commit();
+        return true;
+    } catch (Exception $e) {
+        $conn->rollback();
+        throw $e;
+    }
 }
 
 function addDomanda($conn, $test_id, $testo, $tipo, $risposte = []) {

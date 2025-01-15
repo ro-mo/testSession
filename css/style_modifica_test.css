@@ -5,6 +5,12 @@
     box-sizing: border-box;
 }
 
+.section-title{
+    text-align: center;
+    margin: 20px 0;
+    font-size: 2em;
+}
+
 /* Stile del corpo della pagina */
 body {
     font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
@@ -15,7 +21,7 @@ body {
 
 /* Stile dell'intestazione */
 header {
-    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Sfondo gradiente */
+    background:#4CAF50; /* Sfondo gradiente */
     color: white; /* Colore del testo */
     padding: 20px; /* Padding */
     text-align: center; /* Allineamento al centro */
@@ -94,6 +100,11 @@ li {
     padding: 10px; /* Padding interno */
     border-radius: 5px; /* Angoli arrotondati */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera per le domande */
+}
+
+.form-inline {
+    display: inline-block;
+    margin-right: 10px; /* Spazio tra i form */
 }
 
 /* Stile responsive per schermi piccoli */

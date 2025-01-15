@@ -1,105 +1,123 @@
-/* Reset di base per margini e padding */
+/* Reset di base per garantire coerenza tra i browser */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Stile del corpo della pagina */
+/* Stile del Body */
 body {
-    font-family: 'Arial', sans-serif; /* Font semplice e leggibile */
-    background-color: #f4f4f4; /* Colore di sfondo chiaro */
-    color: #333; /* Colore del testo */
-    line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    line-height: 1.6;
 }
 
-/* Stile dell'intestazione */
-h1 {
-    text-align: center; /* Allineamento al centro */
-    margin: 20px 0; /* Margine per distanziare l'intestazione */
-    color: #6a11cb; /* Colore del titolo */
+/* Header */
+header {
+    background-color: #4CAF50; /* Verde fresco */
+    color: white;
+    padding: 20px;
+    text-align: center;
 }
 
-/* Stile per i messaggi di errore */
-p.error {
-    color: red; /* Colore rosso per i messaggi di errore */
-    text-align: center; /* Allineamento al centro */
+/* Navigazione */
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
 }
 
-/* Stile per i messaggi di successo */
-p.success {
-    color: green; /* Colore verde per i messaggi di successo */
-    text-align: center; /* Allineamento al centro */
+nav a:hover {
+    text-decoration: underline;
 }
 
-/* Stile del contenitore per i risultati */
-.results-container {
-    background: white; /* Sfondo bianco */
-    border-radius: 10px; /* Angoli arrotondati */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra leggera */
-    max-width: 700px; /* Larghezza massima */
-    margin: 50px auto; /* Margine automatico per centrare il contenitore */
-    padding: 20px; /* Padding interno */
+/* Form */
+form {
+    margin: 20px auto;
+    max-width: 400px;
+    background: white;
+    border-radius: 8px; /* Angoli arrotondati */
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-/* Stile per le righe dei risultati */
-.result-row {
-    display: flex; /* Layout flessibile */
-    justify-content: space-between; /* Spaziatura tra le righe */
-    padding: 10px 0; /* Spaziatura verticale */
-    border-bottom: 1px solid #ddd; /* Bordo divisorio */
+/* Etichetta e selettore */
+label {
+    font-weight: bold;
+    margin-bottom: 10px;
+    display: block;
 }
 
-.result-row:last-child {
-    border-bottom: none; /* Rimuove l'ultimo bordo */
+/* Selettore a discesa */
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px; /* Angoli arrotondati */
 }
 
-/* Stile per le etichette dei risultati */
-.result-label {
-    font-weight: bold; /* Grassetto per le etichette */
-    color: #6a11cb; /* Colore del testo */
+/* Pulsante */
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
-/* Stile per i valori dei risultati */
-.result-value {
-    color: #333; /* Colore scuro per i valori */
+input[type="submit"]:hover {
+    background-color: #45a049; /* Colore leggermente più scuro al passaggio del mouse */
 }
 
-/* Stile per il pulsante di ritorno */
-.return-button {
-    display: block; /* Pulsante come blocco */
-    background-color: #4caf50; /* Colore di sfondo verde */
-    color: white; /* Testo bianco */
-    padding: 15px; /* Padding interno */
-    border-radius: 5px; /* Angoli arrotondati */
-    text-align: center; /* Centra il testo */
-    text-decoration: none; /* Rimuove la sottolineatura */
-    margin: 20px auto; /* Centra il pulsante */
-    max-width: 200px; /* Larghezza massima del pulsante */
-    cursor: pointer; /* Cambia il cursore */
-    transition: background-color 0.3s; /* Transizione per effetto hover */
+/* Titoli */
+h1, h2 {
+    margin: 20px 0;
+    text-align: center;
 }
 
-.return-button:hover {
-    background-color: #388e3c; /* Colore verde più scuro */
+/* Contenitore per le schede */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 20px;
 }
 
-/* Stile responsive per schermi piccoli */
+/* Schede per gli studenti */
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 200px; /* Larghezza fissa per le schede */
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Effetto di sollevamento al passaggio del mouse */
+}
+
+/* Media Queries per la responsività */
 @media (max-width: 600px) {
-    h1 {
-        font-size: 2em; /* Riduce la dimensione del titolo */
+    .card {
+        width: 100%; /* Schede a larghezza piena sui dispositivi più piccoli */
     }
 
-    .results-container {
-        padding: 15px; /* Riduce il padding interno */
+    form {
+        width: 90%; /* Form più ampio sui dispositivi più piccoli */
     }
+}
 
-    .result-row {
-        flex-direction: column; /* Layout verticale per schermi piccoli */
-        align-items: flex-start; /* Allinea il testo a sinistra */
-    }
-
-    .return-button {
-        width: 100%; /* Pulsante a larghezza piena */
-    }
+p {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    color: #4CAF50;
 }

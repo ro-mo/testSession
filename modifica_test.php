@@ -129,10 +129,12 @@ $descrizione_test = $test_info['descrizione'];
             var nuovaRisposta = document.createElement("div");
             nuovaRisposta.className = "risposta";
             nuovaRisposta.innerHTML = `
+                <div style="justify-content: space-between;">
                 <label>Risposta:</label>
                 <input type="text" name="risposte[][testo]">
                 <label>Corretta:</label>
                 <input type="checkbox" name="risposte[][corretta]">
+                </div>
             `;
             risposteField.insertBefore(nuovaRisposta, risposteField.lastElementChild);
         }
@@ -199,39 +201,38 @@ $descrizione_test = $test_info['descrizione'];
 
     <h2 class="section-title">Domande Esistenti</h2>
     <ul>
-        <?php foreach ($domande as $domanda) { ?>
-            <li>
-                <form method="post">
-                    <input type="hidden" name="azione" value="modifica_domanda">
-                    <input type="hidden" name="domanda_id" value="<?php echo $domanda['id']; ?>">
-                    <label for="testo_<?php echo $domanda['id']; ?>">Domanda:</label>
-                    <input type="text" name="testo" id="testo_<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($domanda['testo']); ?>" required><br>
+    <?php foreach ($domande as $domanda) { ?>
+        <li>
+            <form method="post" class="form-inline">
+                <input type="hidden" name="azione" value="modifica_domanda">
+                <input type="hidden" name="domanda_id" value="<?php echo $domanda['id']; ?>">
+                <label for="testo_<?php echo $domanda['id']; ?>">Domanda:</label>
+                <input type="text" name="testo" id="testo_<?php echo $domanda['id']; ?>" value="<?php echo htmlspecialchars($domanda['testo']); ?>" required><br>
 
-                    <?php if ($domanda['tipo'] === 'multipla') {
-                        $sql = "SELECT * FROM risposta WHERE domanda_id = ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bind_param("i", $domanda['id']);
-                        $stmt->execute();
-                        $risposte = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-                        foreach ($risposte as $risposta) { ?>
-                            <div class="risposta">
-                                <label>Risposta:</label>
-                                <input type="text" name="risposte[<?php echo $risposta['id']; ?>][testo]" value="<?php echo htmlspecialchars($risposta['testo']); ?>">
-                                <label>Corretta:</label>
-                                <input type="checkbox" name="risposte[<?php echo $risposta['id']; ?>][corretta]" <?php echo $risposta['corretta'] ? 'checked' : ''; ?>>
-                            </div>
-                        <?php }
-                    } ?>
+                <?php if ($domanda['tipo'] === 'multipla') {
+                    $sql = "SELECT * FROM risposta WHERE domanda_id = ?";
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("i", $domanda['id']);
+                    $stmt->execute();
+                    $risposte = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+                    foreach ($risposte as $risposta) { ?>
+                        <div class="risposta" style="display:inline-block">
+                            <label>Risposta:</label>
+                            <input type="text" name="risposte[<?php echo $risposta['id']; ?>][testo]" value="<?php echo htmlspecialchars($risposta['testo']); ?>">
+                            <input type="checkbox" name="risposte[<?php echo $risposta['id']; ?>][corretta]" <?php echo $risposta['corretta'] ? 'checked' : ''; ?>>
+                        </div>
+                    <?php }
+                } ?>
 
-                    <input type="submit" value="Modifica Domanda">
-                </form>
-                <form method="post" style="display:inline;">
-                    <input type="hidden" name="azione" value="elimina_domanda">
-                    <input type="hidden" name="domanda_id" value="<?php echo $domanda['id']; ?>">
-                    <input type="submit" value="Elimina">
-                </form>
-            </li>
-        <?php } ?>
-    </ul>
+                <input type="submit" value="Modifica Domanda">
+            </form>
+            <form method="post" class="form-inline">
+                <input type="hidden" name="azione" value="elimina_domanda">
+                <input type="hidden" name="domanda_id" value="<?php echo $domanda['id']; ?>">
+                <input type="submit" value="Elimina">
+            </form>
+        </li>
+    <?php } ?>
+</ul>
 </body>
 </html>

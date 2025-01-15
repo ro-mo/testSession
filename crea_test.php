@@ -18,18 +18,35 @@ if (isset($_POST['azione'])) {
         $visibile = isset($_POST['visibile']) ? 1 : 0;
         $creatore = $_SESSION['utente'];
 
-        if (createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile)) {
+        $domande = [];
+        if (!empty($_POST['domande'])) {
+            foreach ($_POST['domande'] as $domanda) {
+                $domanda_testo = htmlspecialchars($domanda['testo']);
+                $domanda_tipo = htmlspecialchars($domanda['tipo']);
+                $risposte = [];
+                if ($domanda_tipo === 'multipla' && !empty($domanda['risposte'])) {
+                    foreach ($domanda['risposte'] as $risposta) {
+                        $corretta = isset($risposta['corretta']) ? 1 : 0;
+                        $risposte[] = [
+                            'testo' => htmlspecialchars($risposta['testo']),
+                            'corretta' => $corretta
+                        ];
+                    }
+                }
+                $domande[] = [
+                    'testo' => $domanda_testo,
+                    'tipo' => $domanda_tipo,
+                    'risposte' => $risposte
+                ];
+            }
+        }
+
+        if (createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile, $domande)) {
             header("Location: modifica_test.php?id=" . $conn->insert_id);
             exit();
         } else {
             $errore = "Errore nella creazione del test. Riprova.";
         }
-    } elseif ($azione === 'elimina' && !empty($_POST['test_id'])) {
-        $test_id = intval($_POST['test_id']);
-        $sql = "DELETE FROM test WHERE id = ?";
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("i", $test_id);
-        $stmt->execute();
     }
 }
 
@@ -97,14 +114,14 @@ $test_list = $result->fetch_all(MYSQLI_ASSOC);
                         <td><?php echo htmlspecialchars($test['descrizione']); ?></td>
                         <td><?php echo htmlspecialchars($test['classe']); ?></td>
                         <td>
-                            <form method="get" action="modifica_test.php" style="display:inline;">
+                            <form method="get" action="modifica_test.php" style="display:inline; padding:0;">
                                 <input type="hidden" name="id" value="<?php echo $test['id']; ?>">
                                 <input type="submit" value="Modifica" class="button-yellow">
                             </form>
-                            <form method="post" style="display:inline;">
+                            <form method="post" style="display:inline; padding:0;">
                                 <input type="hidden" name="azione" value="elimina">
                                 <input type="hidden" name="test_id" value="<?php echo $test['id']; ?>">
-                                <input type="submit" value="Elimina" class="button-yellow" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
+                                <input type="submit" value="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
                             </form>
                         </td>
                     </tr>

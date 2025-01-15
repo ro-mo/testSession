@@ -15,7 +15,7 @@ body {
 
 /* Stile dell'intestazione */
 header {
-    background: linear-gradient(135deg, #ff416c, #ff4b2b); /* Sfondo gradiente */
+    background: #4CAF50; /* Sfondo gradiente */
     color: white; /* Colore del testo */
     padding: 20px; /* Padding */
     text-align: center; /* Allineamento al centro */
