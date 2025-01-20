@@ -11,6 +11,7 @@ body {
     background-color: #f4f4f4; /* Colore di sfondo chiaro */
     color: #333; /* Colore del testo */
     line-height: 1.6; /* Altezza della linea per una migliore leggibilità */
+    text-decoration: none;
 }
 
 /* Stile dell'intestazione */
@@ -66,13 +67,24 @@ h2 {
     text-decoration: none; /* Rimuove la sottolineatura */
 }
 
+.card-button {
+    background-color: #4CAF50; /* Sfondo bianco per le carte */
+    border-radius: 10px; /* Angoli arrotondati */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombra della carta */
+    margin: 10px; /* Margine tra le carte */
+    padding: 20px; /* Padding interno */
+    text-align: center; /* Allineamento al centro del testo */
+    transition: transform 0.3s, box-shadow 0.3s; /* Transizione per effetto hover */
+    text-decoration: none; /* Rimuove la sottolineatura */
+}
+
 .card:hover {
     transform: translateY(-5px); /* Solleva la carta in hover */
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); /* Ombra più intensa in hover */
 }
 
 /* Stile per i link all'interno delle carte */
-.card a {
+a {
     display: block; /* Mostra i link come blocchi */
     background-color: #4CAF50; /* Colore di sfondo verde */
     color: white; /* Colore del testo bianco */
@@ -83,6 +95,7 @@ h2 {
     font-size: 1em; /* Dimensione del font */
     transition: background-color 0.3s; /* Transizione per effetto hover */
     text-decoration: none; /* Rimuove la sottolineatura */
+    margin: 10px; /* Margine tra i link */
 }
 
 /* Stile per il messaggio "Nessun test disponibile" */

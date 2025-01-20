@@ -5,110 +5,139 @@
     box-sizing: border-box;
 }
 
+nav{
+    background: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+input[type="button"]{
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background 0.3s;
+
+}
+
+input[type="button"]:hover{
+    background-color: #45a049;
+}
+
+header{
+    background: #4CAF50;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
 /* Stile del corpo della pagina */
 body {
-    font-family: 'Verdana', sans-serif; /* Font semplice e moderno */
-    background-color: white; /* Colore di sfondo azzurro chiaro */
-    color: #222; /* Colore del testo scuro */
-    line-height: 1.5; /* Migliora la leggibilità */
-    padding: 20px; /* Padding generale */
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    padding: 20px;
 }
 
 /* Stile dell'intestazione principale */
 h1 {
-    text-align: center; /* Allineamento centrale */
-    margin: 20px 0; /* Margine sopra e sotto */
-    color: #4CAF50; /* Colore blu scuro */
+    text-align: center;
+    margin: 20px 0;
 }
 
 /* Stile dei messaggi di errore */
 p.error {
-    color: #d32f2f; /* Rosso intenso per errori */
-    text-align: center; /* Centra il testo */
-    font-weight: bold; /* Testo in grassetto */
+    color: #d32f2f;
+    text-align: center;
+    font-weight: bold;
 }
 
 /* Stile del contenitore del test */
 form {
-    background: #ffffff; /* Sfondo bianco */
-    border-radius: 12px; /* Angoli arrotondati */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Ombra per profondità */
-    max-width: 600px; /* Larghezza massima del modulo */
-    margin: 40px auto; /* Centra il modulo */
-    padding: 25px; /* Spaziatura interna */
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 25px;
 }
 
 /* Stile per i campi del modulo */
 label {
-    display: block; /* Forza i label a una nuova riga */
-    margin-bottom: 8px; /* Spaziatura sotto il label */
-    font-weight: bold; /* Grassetto per evidenziare i label */
-    color: #4CAF50; /* Blu scuro */
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #4CAF50;
 }
 
 input[type="text"],
 input[type="number"],
 select {
-    width: 100%; /* Occupa tutta la larghezza disponibile */
-    padding: 12px; /* Spaziatura interna */
-    margin-bottom: 18px; /* Margine sotto i campi */
-    border: 1px solid #b0bec5; /* Bordo grigio chiaro */
-    border-radius: 8px; /* Angoli arrotondati */
-    font-size: 1em; /* Dimensione leggibile */
-    transition: border 0.3s; /* Transizione per effetto hover */
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 18px;
+    border: 1px solid #b0bec5;
+    border-radius: 8px;
+    font-size: 1em;
+    transition: border 0.3s;
 }
 
 input[type="text"]:focus,
 input[type="number"]:focus,
 select:focus {
-    border-color: #4CAF50; /* Cambia colore del bordo al focus */
-    outline: none; /* Rimuove l'effetto bordo di default */
+    border-color: #4CAF50;
+    outline: none;
 }
 
 /* Stile per il pulsante di invio */
 input[type="submit"] {
-    background-color: #4CAF50; /* Colore verde */
-    color: white; /* Testo bianco */
-    border: none; /* Nessun bordo */
-    padding: 15px; /* Spaziatura interna */
-    border-radius: 8px; /* Angoli arrotondati */
-    cursor: pointer; /* Mostra il cursore interattivo */
-    font-size: 1em; /* Testo leggibile */
-    transition: background-color 0.3s; /* Transizione per l'effetto hover */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
 }
 
 input[type="submit"]:hover {
-    background-color: #0d47a1; /* Blu più scuro all'hover */
+    background-color: #388e3c;
 }
 
 /* Stile per messaggi di successo */
 p.success {
-    color: #388e3c; /* Verde intenso per i messaggi positivi */
-    text-align: center; /* Centra il testo */
-    font-weight: bold; /* Testo in grassetto */
+    color: #388e3c;
+    text-align: center;
+    font-weight: bold;
 }
 
 /* Stile per la sezione dei risultati */
 #results {
-    background-color: #e3f2fd; /* Sfondo simile alla pagina */
-    border: 1px dashed #4CAF50; /* Bordo tratteggiato verde */
-    border-radius: 10px; /* Angoli arrotondati */
-    padding: 20px; /* Spaziatura interna */
-    margin-top: 20px; /* Spazio sopra */
-    color: #222; /* Testo scuro */
+    background-color: #e3f2fd;
+    border: 1px dashed #4CAF50;
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 20px;
+    color: #222;
 }
 
 /* Design responsive */
 @media (max-width: 600px) {
     h1 {
-        font-size: 1.8em; /* Dimensione ridotta per schermi piccoli */
+        font-size: 1.8em;
     }
 
     form {
-        padding: 20px; /* Riduce il padding interno */
+        padding: 20px;
     }
 
     input[type="submit"] {
-        padding: 12px; /* Riduce la spaziatura interna */
+        padding: 12px;
     }
 }

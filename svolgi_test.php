@@ -73,7 +73,7 @@ $domande = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
     <header>
         <h1>Svolgi Test</h1>
         <nav>
-            <a href="index.php">Torna alla Dashboard</a>
+            <input type="button" value="Torna alla Dashboard" onclick="location.href='index.php';">
         </nav>
     </header>
 
@@ -92,8 +92,7 @@ $domande = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
                             <input type="radio" name="risposte[<?php echo $domanda['id']; ?>]" value="<?php echo $risposta['id']; ?>" required>
                             <label style="margin-left: 5px;"><?php echo htmlspecialchars($risposta['testo']); ?></label>
                         </div>
-                    <?php }
-                } else { ?>
+                    <?php } } else { ?>
                     <input type="text" name="risposte[<?php echo $domanda['id']; ?>]" required>
                 <?php } ?>
             </div>

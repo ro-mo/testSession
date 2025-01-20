@@ -103,6 +103,7 @@ li {
 }
 
 .form-inline {
+    justify-content: center;
     display: inline-block;
     margin-right: 10px; /* Spazio tra i form */
 }

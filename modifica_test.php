@@ -14,7 +14,6 @@ if (!isset($_GET['id'])) {
 
 $test_id = intval($_GET['id']);
 
-// Funzionalità CRUD per le domande e il test
 if (isset($_POST['azione'])) {
     $azione = $_POST['azione'];
     if ($azione === 'aggiungi_domanda' && !empty($_POST['testo']) && !empty($_POST['tipo'])) {
@@ -31,11 +30,25 @@ if (isset($_POST['azione'])) {
                 }
             }
         }
-        addDomanda($conn, $test_id, $testo, $tipo, $risposte);
+        
+        $sql = "INSERT INTO domanda (test_id, testo, tipo) VALUES (?, ?, ?)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("iss", $test_id, $testo, $tipo);
+        $stmt->execute();
+        $domanda_id = $conn->insert_id;
+
+        if ($tipo === 'multipla' && !empty($risposte)) {
+            $sql = "INSERT INTO risposta (domanda_id, testo, corretta) VALUES (?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            foreach ($risposte as $risposta) {
+                $stmt->bind_param("isi", $domanda_id, $risposta['testo'], $risposta['corretta']);
+                $stmt->execute();
+            }
+        }
+
     } elseif ($azione === 'elimina_domanda' && !empty($_POST['domanda_id'])) {
         $domanda_id = intval($_POST['domanda_id']);
         
-        // Elimina le risposte utente associate alle risposte della domanda
         $sql = "DELETE ru FROM risposta_utente ru
                 JOIN risposta r ON ru.risposta_id = r.id
                 WHERE r.domanda_id = ?";
@@ -43,13 +56,11 @@ if (isset($_POST['azione'])) {
         $stmt->bind_param("i", $domanda_id);
         $stmt->execute();
 
-        // Elimina le risposte della domanda
         $sql = "DELETE FROM risposta WHERE domanda_id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $domanda_id);
         $stmt->execute();
 
-        // Elimina la domanda
         $sql = "DELETE FROM domanda WHERE id = ?";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $domanda_id);
@@ -88,14 +99,12 @@ if (isset($_POST['azione'])) {
     }
 }
 
-// Recupera tutte le domande del test
 $sql = "SELECT * FROM domanda WHERE test_id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $test_id);
 $stmt->execute();
 $domande = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 
-// Recupera le informazioni del test
 $sql = "SELECT titolo, descrizione, visibile FROM test WHERE id = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $test_id);
@@ -103,6 +112,7 @@ $stmt->execute();
 $test_info = $stmt->get_result()->fetch_assoc();
 $titolo_test = $test_info['titolo'];
 $descrizione_test = $test_info['descrizione'];
+$visibile_test = $test_info['visibile'];
 ?>
 
 <!DOCTYPE html>
@@ -195,7 +205,7 @@ $descrizione_test = $test_info['descrizione'];
     <form method="post">
         <input type="hidden" name="azione" value="aggiorna_visibilita">
         <label for="visibile">Visibile agli studenti:</label>
-        <input type="checkbox" name="visibile" id="visibile" value="1" <?php echo $test_info['visibile'] ? 'checked' : ''; ?>><br>
+        <input type="checkbox" name="visibile" id="visibile" value="1" <?php echo $visibile_test ? 'checked' : ''; ?>><br>
         <input type="submit" value="Aggiorna Visibilità">
     </form>
 
@@ -233,6 +243,6 @@ $descrizione_test = $test_info['descrizione'];
             </form>
         </li>
     <?php } ?>
-</ul>
+    </ul>
 </body>
 </html>

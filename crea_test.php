@@ -8,7 +8,6 @@ if ($conn->connect_error) {
     die("Connessione fallita: " . $conn->connect_error);
 }
 
-// Funzionalità CRUD per i test
 if (isset($_POST['azione'])) {
     $azione = $_POST['azione'];
     if ($azione === 'crea' && !empty($_POST['titolo']) && !empty($_POST['descrizione']) && !empty($_POST['classe'])) {
@@ -41,23 +40,74 @@ if (isset($_POST['azione'])) {
             }
         }
 
-        if (createTest($conn, $titolo, $descrizione, $creatore, $classe, $visibile, $domande)) {
-            header("Location: modifica_test.php?id=" . $conn->insert_id);
+        $conn->begin_transaction();
+        try {
+            $sql = "INSERT INTO test (titolo, descrizione, creatore, classe, visibile) VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("ssssi", $titolo, $descrizione, $creatore, $classe, $visibile);
+            $stmt->execute();
+
+            $test_id = $conn->insert_id;
+
+            foreach ($domande as $domanda) {
+                $sql = "INSERT INTO domanda (test_id, testo, tipo) VALUES (?, ?, ?)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bind_param("iss", $test_id, $domanda['testo'], $domanda['tipo']);
+                $stmt->execute();
+                $domanda_id = $conn->insert_id;
+
+                if ($domanda['tipo'] === 'multipla' && !empty($domanda['risposte'])) {
+                    $sql = "INSERT INTO risposta (domanda_id, testo, corretta) VALUES (?, ?, ?)";
+                    $stmt = $conn->prepare($sql);
+                    foreach ($domanda['risposte'] as $risposta) {
+                        $stmt->bind_param("isi", $domanda_id, $risposta['testo'], $risposta['corretta']);
+                        $stmt->execute();
+                    }
+                }
+            }
+
+            $conn->commit();
+            header("Location: modifica_test.php?id=" . $test_id);
             exit();
-        } else {
+        } catch (Exception $e) {
+            $conn->rollback();
             $errore = "Errore nella creazione del test. Riprova.";
+        }
+    } elseif ($azione === 'elimina' && !empty($_POST['test_id'])) {
+        $test_id = intval($_POST['test_id']);
+        $conn->begin_transaction();
+        try {
+            $sql = "DELETE FROM risposta WHERE domanda_id IN (SELECT id FROM domanda WHERE test_id = ?)";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $test_id);
+            $stmt->execute();
+
+            $sql = "DELETE FROM domanda WHERE test_id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $test_id);
+            $stmt->execute();
+
+            $sql = "DELETE FROM test WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $test_id);
+            $stmt->execute();
+
+            $conn->commit();
+            header("Location: crea_test.php");
+            exit();
+        } catch (Exception $e) {
+            $conn->rollback();
+            $errore = "Errore nell'eliminazione del test. Riprova.";
         }
     }
 }
 
-// Recupera tutti i test creati dal docente
 $creatore = $_SESSION['utente'];
 $sql = "SELECT * FROM test WHERE creatore = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("s", $creatore);
 $stmt->execute();
-$result = $stmt->get_result();
-$test_list = $result->fetch_all(MYSQLI_ASSOC);
+$test_list = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +171,7 @@ $test_list = $result->fetch_all(MYSQLI_ASSOC);
                             <form method="post" style="display:inline; padding:0;">
                                 <input type="hidden" name="azione" value="elimina">
                                 <input type="hidden" name="test_id" value="<?php echo $test['id']; ?>">
-                                <input type="submit" value="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
+                                <input type="submit" name="elimina" value="Elimina" onclick="return confirm('Sei sicuro di voler eliminare questo test?');">
                             </form>
                         </td>
                     </tr>

@@ -54,12 +54,8 @@ $classe = $utente_info['classe'];
     <?php if ($ruolo === "docente") { ?>
         <h2>Gestione Test</h2>
         <div class="card-container">
-            <div class="card">
-                <a href="crea_test.php">Crea/Modifica Test</a>
-            </div>
-            <div class="card">
-                <a href="visualizza_risultati.php">Visualizza Risultati</a>
-            </div>
+            <a href="crea_test.php">Crea/Modifica Test</a>
+            <a href="visualizza_risultati.php">Visualizza Risultati</a>
         </div>
     <?php } else { ?>
         <h2>Test Disponibili</h2>
@@ -74,7 +70,7 @@ $classe = $utente_info['classe'];
             $result = $stmt->get_result();
             if ($result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
-                    echo "<div class='card'><a href='dettagli_test.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['titolo']) . ": " . htmlspecialchars($row['descrizione']) . "</a></div>";
+                    echo "<a href='dettagli_test.php?id=" . $row['id'] . "'>" . htmlspecialchars($row['titolo']) . ": " . htmlspecialchars($row['descrizione']) . "</a>";
                 }
             } else {
                 echo "<div class='no-tests'>Nessun test disponibile al momento.</div>";
